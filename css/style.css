@@ -1,0 +1,584 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #b2b2b2;
+  position: relative;
+  min-height: 100vh;
+}
+.up {
+  position: fixed;
+  bottom: 20px;
+  font-size: 25px;
+  right: 20px;
+  color: #2196f3;
+  cursor: pointer;
+  z-index: 3;
+  width: 35px;
+  height: 35px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading img {
+  width: 100px;
+}
+
+.notifications {
+  width: fit-content;
+  height: 90%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  min-width: 220px;
+  pointer-events: none;
+}
+
+.notifications div {
+  position: relative;
+  right: -500px;
+  padding: 20px;
+  background-color: #1aa263;
+  color: #002212;
+  min-width: 200px;
+  width: fit-content;
+  height: 60px;
+  transition: 0.5s;
+  z-index: 2;
+  margin: 10px;
+  -webkit-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.notifications div.show {
+  right: 0;
+}
+
+.addPostBtn {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2196f3;
+  font-size: 30px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+  display: none;
+  transition: 0.5s;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.addPostBtn:hover {
+  border: 1px solid #fff;
+}
+
+.addPostBtn.show {
+  display: flex;
+}
+
+.overlay.active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.modal {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -400px;
+  box-shadow: 4px 4px 4px -4px;
+  width: 400px;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 8px;
+  transition: 0.5s;
+  z-index: 2;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.modal.addPost .body,
+.modal.updatePost .body {
+  width: 100%;
+  height: 100px;
+  border-radius: 6px;
+  outline: none;
+  resize: none;
+  padding: 5px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+.modal.register input[type="file"] {
+  background-color: #fff;
+}
+
+.modal.show {
+  top: 20px;
+}
+
+.modal h4 {
+  padding: 10px 0;
+}
+.modal input {
+  width: 100%;
+  margin: 10px 0;
+  height: 30px;
+  border: 1px solid #333;
+  outline: none;
+  padding: 5px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+.modal button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid #333;
+  cursor: pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+/* @media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+} */
+
+header {
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  background: #eee;
+  box-shadow: 0px 4px 7px -4px #222;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+header .logo a {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px;
+  cursor: pointer;
+}
+
+header nav {
+  flex: 1;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header nav ul > div {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+header nav ul > div li {
+  margin: 5px;
+  color: #777;
+  cursor: pointer;
+}
+
+header nav ul .pages li.active,
+header nav ul .pages li:hover {
+  color: #222;
+}
+
+header nav ul .btns li {
+  margin: 5px;
+  color: #43a047;
+  border: 2px solid #43a047;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 5px 10px;
+  transition: 0.3s;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+
+.btns > div {
+  display: flex;
+  align-items: center;
+}
+
+header nav ul .btns li:hover {
+  background-color: #43a047;
+  color: #fff;
+}
+
+header nav .btns .login.hide {
+  display: none;
+}
+
+header nav .btns .register.hide {
+  display: none;
+}
+
+header nav .btns .logout {
+  display: none;
+  color: red;
+  border-color: red;
+}
+
+header nav ul .btns .logout:hover {
+  background-color: red;
+  color: #fff;
+}
+
+header nav .btns .logout.show {
+  display: block;
+}
+
+header nav .btns .profileIcon {
+  box-shadow: 4px 4px 4px -3px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: none;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+header nav .btns .profileIcon.show {
+  display: block;
+}
+
+header nav .btns .userName {
+  padding: 10px;
+  display: none;
+  cursor: pointer;
+}
+
+header nav .btns .userName.show {
+  display: block;
+}
+
+@media (max-width: 720px) {
+  header,
+  header nav ul,
+  header nav ul .btns {
+    flex-direction: column;
+  }
+}
+
+.posts {
+  margin-top: 15px;
+}
+.posts .post {
+  background: #fff;
+  margin: 15px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.posts .post .header {
+  background: #eee;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.posts .post .header img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  cursor: pointer;
+}
+.posts .post .header h4 {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.posts .post .header .time {
+  font-size: 12px;
+  display: block;
+  margin-right: 10px;
+}
+
+.posts .post .header .update {
+  font-size: 20px;
+  color: #2196f3;
+  cursor: pointer;
+  margin-right: 10px;
+  display: none;
+}
+.posts .post .header .delete {
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+  display: none;
+}
+.posts .mine .header .delete,
+.posts .mine .header .update {
+  display: block;
+}
+
+.posts .post .body img {
+  width: 100%;
+}
+
+.posts .post .body .title {
+  margin: 5px 0;
+  font-weight: 500;
+  padding: 0 10px;
+}
+.posts .post .body p {
+  margin: 5px 0 15px;
+  color: #777;
+  line-height: 1.4;
+  padding: 0 10px;
+}
+.posts .post .body .comments {
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px;
+  background: #eee;
+}
+
+.comments .commentContainer {
+  width: 100%;
+  background: #e0e0e0;
+  margin-top: 10px;
+  max-height: 125px;
+  overflow: auto;
+  display: none;
+}
+
+.comments.show .commentContainer {
+  display: block;
+}
+.comments.show .faild {
+  display: flex;
+  margin-top: 10px;
+  flex-direction: row-reverse;
+}
+
+.commentContainer .comment {
+  width: 100%;
+  background: #bdbdbd;
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.commentContainer .comment .user {
+  background: #7e7d7d;
+  padding: 10px;
+  position: relative;
+  color: #fff;
+}
+.commentContainer .comment .user::before {
+  content: "";
+  position: absolute;
+  border-width: 7px;
+  border-style: solid;
+  border-color: transparent transparent transparent #7e7d7d;
+  right: -13px;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+.commentContainer .comment .body {
+  padding: 10px;
+}
+.faild {
+  display: none;
+}
+.faild input {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+
+.faild button {
+  width: 100px;
+  cursor: pointer;
+  border: 1px solid #aaa;
+}
+
+.userDetails {
+  background-color: #eee;
+  margin: 20px 0;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+
+.userDetails .info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.userDetails .info > div {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userDetails .info .img {
+  max-width: 200px;
+  width: 120px;
+  height: 120px;
+}
+
+.userDetails .info .img img {
+  box-shadow: 4px 4px 4px -3px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #b2b2b2;
+}
+
+.userDetails .info .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 30px;
+  flex: 1;
+}
+
+.userDetails .info .col > div {
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.userPosts {
+  background-color: #eee;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+}
+
+@media (max-width: 540px) {
+  .userDetails .info {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+  .userDetails .info .data {
+    flex-direction: column;
+  }
+  .userDetails .info .col > div {
+    font-size: 14px;
+  }
+}
